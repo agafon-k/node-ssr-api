@@ -1,14 +1,15 @@
-var ObjectID = require('mongodb').ObjectID;
+const ObjectID = require('mongodb').ObjectID;
 
-module.exports = function(app, database) {
+module.exports = function (app, database) {
     app.get('/v1', (req, res) => {
         res.send('<p>Hello World!</p>');
     });
 
     app.get('/v1/posts', (req, res) => {
+        console.log('sasas');
         database.collection('notes').find().toArray((err, item) => {
             if (err) {
-                res.send({'error':'An error has occurred'});
+                res.send({ 'error':'An error has occurred' });
             } else {
                 res.send(item);
             }
@@ -20,7 +21,7 @@ module.exports = function(app, database) {
         const details = { '_id': new ObjectID(id) };
         database.collection('notes').findOne(details, (err, item) => {
             if (err) {
-                res.send({'error':'An error has occurred'});
+                res.send({ 'error':'An error has occurred' });
             } else {
                 res.send(item);
             }
@@ -34,7 +35,7 @@ module.exports = function(app, database) {
         const details = { pages: id };
         database.collection('notes').find(details).toArray((err, item) => {
             if (err) {
-                res.send({'error':'An error has occurred'});
+                res.send({ 'error':'An error has occurred' });
             } else {
                 res.send(item);
             }
